@@ -1,0 +1,1087 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Programming Study Guide</title>
+<style>
+:root{--ink:#1f2328;--muted:#5b636e;--line:#d8dee4;--accent:#2f5d8a;--code:#f6f8fa;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);max-width:1180px;margin:0 auto;gap:40px;padding:0 16px}
+nav{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;padding:32px 0;font-size:14px}
+nav .toc ul{list-style:none;padding-left:0;margin:0} nav .toc li{margin:4px 0}
+nav a{color:var(--muted);text-decoration:none} nav a:hover{color:var(--accent)}
+nav .title{font-weight:600;margin-bottom:12px;color:var(--ink)}
+main{padding:32px 0 80px;min-width:0}
+h1{font-size:2rem;margin:0 0 4px} .sub{color:var(--muted);margin-bottom:24px}
+h2{font-size:1.5rem;margin:2.4em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--accent);color:var(--accent)}
+h3{font-size:1.15rem;margin:1.6em 0 .4em}
+code{font:13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.hl{background:var(--code);border:1px solid var(--line);border-radius:8px;margin:12px 0}
+.hl pre{margin:0;padding:12px 14px;overflow-x:auto} .hl code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#eef3f8}
+p:has(+ul) {margin-bottom:4px}
+pre { line-height: 125%; }
+td.linenos .normal { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #666666; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.hl .hll { background-color: #ffffcc }
+.hl { background: #f0f0f0; }
+.hl .c { color: #60A0B0; font-style: italic } /* Comment */
+.hl .err { border: 1px solid #F00 } /* Error */
+.hl .k { color: #007020; font-weight: bold } /* Keyword */
+.hl .o { color: #666 } /* Operator */
+.hl .ch { color: #60A0B0; font-style: italic } /* Comment.Hashbang */
+.hl .cm { color: #60A0B0; font-style: italic } /* Comment.Multiline */
+.hl .cp { color: #007020 } /* Comment.Preproc */
+.hl .cpf { color: #60A0B0; font-style: italic } /* Comment.PreprocFile */
+.hl .c1 { color: #60A0B0; font-style: italic } /* Comment.Single */
+.hl .cs { color: #60A0B0; background-color: #FFF0F0 } /* Comment.Special */
+.hl .gd { color: #A00000 } /* Generic.Deleted */
+.hl .ge { font-style: italic } /* Generic.Emph */
+.hl .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.hl .gr { color: #F00 } /* Generic.Error */
+.hl .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.hl .gi { color: #00A000 } /* Generic.Inserted */
+.hl .go { color: #888 } /* Generic.Output */
+.hl .gp { color: #C65D09; font-weight: bold } /* Generic.Prompt */
+.hl .gs { font-weight: bold } /* Generic.Strong */
+.hl .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.hl .gt { color: #04D } /* Generic.Traceback */
+.hl .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.hl .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.hl .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.hl .kp { color: #007020 } /* Keyword.Pseudo */
+.hl .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.hl .kt { color: #902000 } /* Keyword.Type */
+.hl .m { color: #40A070 } /* Literal.Number */
+.hl .s { color: #4070A0 } /* Literal.String */
+.hl .na { color: #4070A0 } /* Name.Attribute */
+.hl .nb { color: #007020 } /* Name.Builtin */
+.hl .nc { color: #0E84B5; font-weight: bold } /* Name.Class */
+.hl .no { color: #60ADD5 } /* Name.Constant */
+.hl .nd { color: #555; font-weight: bold } /* Name.Decorator */
+.hl .ni { color: #D55537; font-weight: bold } /* Name.Entity */
+.hl .ne { color: #007020 } /* Name.Exception */
+.hl .nf { color: #06287E } /* Name.Function */
+.hl .nl { color: #002070; font-weight: bold } /* Name.Label */
+.hl .nn { color: #0E84B5; font-weight: bold } /* Name.Namespace */
+.hl .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.hl .nv { color: #BB60D5 } /* Name.Variable */
+.hl .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.hl .w { color: #BBB } /* Text.Whitespace */
+.hl .mb { color: #40A070 } /* Literal.Number.Bin */
+.hl .mf { color: #40A070 } /* Literal.Number.Float */
+.hl .mh { color: #40A070 } /* Literal.Number.Hex */
+.hl .mi { color: #40A070 } /* Literal.Number.Integer */
+.hl .mo { color: #40A070 } /* Literal.Number.Oct */
+.hl .sa { color: #4070A0 } /* Literal.String.Affix */
+.hl .sb { color: #4070A0 } /* Literal.String.Backtick */
+.hl .sc { color: #4070A0 } /* Literal.String.Char */
+.hl .dl { color: #4070A0 } /* Literal.String.Delimiter */
+.hl .sd { color: #4070A0; font-style: italic } /* Literal.String.Doc */
+.hl .s2 { color: #4070A0 } /* Literal.String.Double */
+.hl .se { color: #4070A0; font-weight: bold } /* Literal.String.Escape */
+.hl .sh { color: #4070A0 } /* Literal.String.Heredoc */
+.hl .si { color: #70A0D0; font-style: italic } /* Literal.String.Interpol */
+.hl .sx { color: #C65D09 } /* Literal.String.Other */
+.hl .sr { color: #235388 } /* Literal.String.Regex */
+.hl .s1 { color: #4070A0 } /* Literal.String.Single */
+.hl .ss { color: #517918 } /* Literal.String.Symbol */
+.hl .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.hl .fm { color: #06287E } /* Name.Function.Magic */
+.hl .vc { color: #BB60D5 } /* Name.Variable.Class */
+.hl .vg { color: #BB60D5 } /* Name.Variable.Global */
+.hl .vi { color: #BB60D5 } /* Name.Variable.Instance */
+.hl .vm { color: #BB60D5 } /* Name.Variable.Magic */
+.hl .il { color: #40A070 } /* Literal.Number.Integer.Long */
+@media (max-width:820px){.wrap{grid-template-columns:1fr} nav{position:static;max-height:none;padding-bottom:0}}
+@media print{nav{display:none} .wrap{display:block;max-width:none;padding:0} main{padding:0}
+ h2{break-after:avoid} h3{break-after:avoid} .hl,table,tr{break-inside:avoid} .hl pre{white-space:pre-wrap} body{font-size:11.5pt}}
+</style></head><body><div class="wrap">
+<nav><div class="title">Contents</div><div class="toc"><ul><li><a href="#overview">Overview</a></li><li><a href="#unit-1-basics">Unit 1: Basics</a></li><li><a href="#unit-2-collections">Unit 2: Collections</a></li><li><a href="#unit-3-decisions">Unit 3: Decisions</a></li><li><a href="#unit-4-loops-and-files">Unit 4: Loops and files</a></li><li><a href="#unit-5-regular-expressions">Unit 5: Regular expressions</a></li><li><a href="#unit-6-functions">Unit 6: Functions</a></li><li><a href="#python-2-vs-python-3">Python 2 vs Python 3</a></li><li><a href="#corrections-to-the-lectures">Corrections to the lectures</a></li><li><a href="#self-check-questions">Self-check questions</a></li></ul></div></nav>
+<main><h1>Python Programming Study Guide</h1><div class="sub">BINF690 lecture transcripts · Jill Lynch · November 1, 2026</div>
+<h2 id="overview">Overview</h2>
+<p>This guide covers all 38 lecture transcripts, grouped into six units in the order the course builds them. Each unit lists the big ideas first, then the code you should be able to write from memory.</p>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Lectures covered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Basics</td>
+<td>Variables, Numbers, Strings, Printing &amp; formatting, Booleans &amp; sets, Variables/references/mutability</td>
+</tr>
+<tr>
+<td>2. Collections</td>
+<td>Lists, Tuples, Dictionaries</td>
+</tr>
+<tr>
+<td>3. Decisions</td>
+<td>Conditions &amp; operators, if / elif / else</td>
+</tr>
+<tr>
+<td>4. Loops &amp; files</td>
+<td>for loops, while loops, range / enumerate &amp; more, Files</td>
+</tr>
+<tr>
+<td>5. Regular expressions</td>
+<td>Regular expressions parts 1–4, plus the Regular Expressions reading</td>
+</tr>
+<tr>
+<td>6. Functions</td>
+<td>Functions, Arguments, Docstrings, Scope, Lambda, Recursion</td>
+</tr>
+</tbody>
+</table>
+<p>How to use it: read a unit's concepts, then cover the code block and try to write each line yourself. The instructor demos in Python 2; all code here is Python 3, and the Python 2 vs 3 table near the end lists the differences.</p>
+<h2 id="unit-1-basics">Unit 1: Basics</h2>
+<p>Variables point to values; strings and numbers can't be changed in place, but lists and dictionaries can. All code below is Python 3.</p>
+<h3 id="variables">Variables</h3>
+<ul>
+<li>A variable is a named pointer to a value. Python doesn't make you declare its type, so one name can hold a DNA string and later a number.</li>
+<li>Names may use letters, digits and <code>_</code>, but can't start with a digit or contain spaces or hyphens.</li>
+<li>Use descriptive names (<code>dna_string</code>, not <code>x</code>). The instructor uses lowercase for local names and UPPERCASE for globals.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="s2">"ACTGTGTAGCATCG"</span>
+<span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"TAG"</span><span class="p">)</span>      <span class="c1"># ['ACTGTG', 'CATCG']</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># 14</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>         <span class="c1"># 'A', 'G'</span>
+<span class="c1"># illegal names: 1a, dna string, my-var</span>
+</code></pre></div>
+
+<h3 id="numbers">Numbers</h3>
+<ul>
+<li>Integers are whole numbers; floats have a decimal point.</li>
+<li>Typecasting (<code>int()</code>, <code>float()</code>) converts between types. <code>int()</code> chops off the decimal; it does not round.</li>
+<li>Math follows order of operations. Use parentheses to force your own order.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span>               <span class="c1"># 1.5   (true division)</span>
+<span class="nb">int</span><span class="p">(</span><span class="mf">1.9</span><span class="p">)</span>            <span class="c1"># 1     (truncates)</span>
+<span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span>              <span class="c1"># 8     (power)</span>
+<span class="mi">4</span> <span class="o">**</span> <span class="mf">0.5</span>            <span class="c1"># 2.0   (square root)</span>
+<span class="p">((</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span> <span class="c1"># 123</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>       <span class="c1"># 4.0</span>
+<span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span>     <span class="c1"># 1   (always down)</span>
+<span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span>      <span class="c1"># 2   (always up)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>          <span class="c1"># random float from 0 to 1</span>
+<span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="c1"># whole number 10-19 (end not included)</span>
+</code></pre></div>
+
+<h3 id="strings">Strings</h3>
+<ul>
+<li>A string is an ordered sequence of characters. Positions (indexes) start at 0; negative indexes count from the right.</li>
+<li>Slicing <code>s[start:end]</code> includes start but stops before end.</li>
+<li>Strings are immutable: you can't change one character; you build a new string.</li>
+<li>A method is attached to an object with a dot (<code>s.upper()</code>); a function stands alone (<code>len(s)</code>). Methods can be chained.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">s</span> <span class="o">=</span> <span class="s2">"hello world"</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>         <span class="c1"># 'h', 'd'</span>
+<span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>        <span class="c1"># 'hello', 'world'</span>
+<span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>       <span class="c1"># 'd'  (s[len(s)] is an IndexError)</span>
+<span class="s2">"ACTG"</span> <span class="o">+</span> <span class="s2">"GTC"</span>      <span class="c1"># 'ACTGGTC'  (concatenation)</span>
+<span class="s2">"AT"</span> <span class="o">*</span> <span class="mi">3</span>            <span class="c1"># 'ATATAT'</span>
+<span class="n">z</span> <span class="o">=</span> <span class="s2">"ACTG"</span>
+<span class="n">z</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>              <span class="c1"># 'AT'  (every other character)</span>
+<span class="n">z</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>             <span class="c1"># 'GTCA' (reverse)</span>
+<span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>  <span class="c1"># 'GTCA' (instructor's preferred reverse)</span>
+
+<span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"G"</span> <span class="o">+</span> <span class="n">z</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>   <span class="c1"># "change" position 1 by rebuilding</span>
+<span class="n">z</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>               <span class="c1"># index of first T, or -1 if absent</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"G"</span><span class="p">)</span>   <span class="c1"># replace returns a NEW string; reassign it</span>
+<span class="n">z</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">z</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="s2">"  ACTGACTG  "</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"ga"</span><span class="p">)</span>  <span class="c1"># chained methods</span>
+</code></pre></div>
+
+<h3 id="printing-and-formatting">Printing and formatting</h3>
+<ul>
+<li>Label output, with sensible units and decimal places.</li>
+<li><code>%</code> placeholders fill in by position: <code>%s</code> text, <code>%i</code> integer, <code>%f</code> float. Width counts the whole field, decimal point included.</li>
+<li><code>.format()</code> with named placeholders prevents mixing up values.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">"DNA is </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+<span class="s2">"</span><span class="si">%.2f</span><span class="s2">"</span> <span class="o">%</span> <span class="mf">3.1415926</span>         <span class="c1"># '3.14'</span>
+<span class="s2">"</span><span class="si">%10.3f</span><span class="s2">"</span> <span class="o">%</span> <span class="mf">3.1415926</span>       <span class="c1"># '     3.142'</span>
+<span class="s2">"</span><span class="si">%+010.3f</span><span class="s2">"</span> <span class="o">%</span> <span class="mf">1.1</span>           <span class="c1"># '+00001.100'</span>
+<span class="s2">"Principal </span><span class="si">{p}</span><span class="s2">, interest </span><span class="si">{r}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="s2">"</span><span class="si">{x:10.3f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># '   100.000'</span>
+</code></pre></div>
+
+<h3 id="booleans-none-and-sets">Booleans, None and sets</h3>
+<ul>
+<li><code>True</code>/<code>False</code> (capitalized) usually come from comparisons and control loops. <code>==</code> compares; <code>=</code> assigns.</li>
+<li><code>None</code> means "nothing here."</li>
+<li>A set holds unique items in no particular order. Sets find shared or unique gene IDs without loops.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">"ham"</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">}</span>
+<span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span>      <span class="c1"># {'a'}            items in both (intersection)</span>
+<span class="n">x</span> <span class="o">|</span> <span class="n">y</span>      <span class="c1"># {'h','a','m','p'} all unique items (union)</span>
+<span class="n">x</span> <span class="o">-</span> <span class="n">y</span>      <span class="c1"># {'h','m'}         in x but not y (difference)</span>
+<span class="p">{</span><span class="s2">"a"</span><span class="p">}</span> <span class="o">&lt;</span> <span class="n">x</span>  <span class="c1"># True              subset test</span>
+</code></pre></div>
+
+<h3 id="references-and-mutability">References and mutability</h3>
+<ul>
+<li><code>b = a</code> makes both names point to the same object (a shared reference).</li>
+<li>Reassigning a name points it somewhere new. Changing an item inside a list or dictionary shows up through every name pointing at it.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">l1</span>
+<span class="n">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">24</span>          <span class="c1"># l2 is now [24, 2, 3] too</span>
+<span class="n">l2</span> <span class="o">=</span> <span class="n">l1</span><span class="p">[:]</span>          <span class="c1"># a real copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>        <span class="c1"># copies the top level only</span>
+<span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>    <span class="c1"># full copy, for nested lists/dicts</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li><code>"ACTG" + 5</code> is a TypeError. Convert first with <code>str(5)</code>.</li>
+<li><code>rstrip()</code> removes trailing (right-side) spaces; <code>lstrip()</code> removes leading (left-side) spaces.</li>
+<li>A set itself can be changed; only its items must be unchangeable.</li>
+</ul>
+<h2 id="unit-2-collections">Unit 2: Collections</h2>
+<p>Use a list when you work through items in order, a dictionary when you look things up by ID, and a tuple when values must never change.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Brackets</th>
+<th>Ordered?</th>
+<th>Changeable?</th>
+<th>Look up by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td><code>[1, 2, 3]</code></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Position (0, 1, 2…)</td>
+</tr>
+<tr>
+<td>Tuple</td>
+<td><code>(1, 2, 3)</code></td>
+<td>Yes</td>
+<td>No (top level only)</td>
+<td>Position</td>
+</tr>
+<tr>
+<td>Dictionary</td>
+<td><code>{"a": 1}</code></td>
+<td>Keeps insertion order (Python 3.7+), no slicing</td>
+<td>Yes</td>
+<td>Key</td>
+</tr>
+<tr>
+<td>Set</td>
+<td><code>{1, 2, 3}</code></td>
+<td>No</td>
+<td>Yes</td>
+<td>Membership only</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lists">Lists</h3>
+<ul>
+<li>A list holds many values in one variable. It can grow or shrink, mix types, and hold other lists (nesting).</li>
+<li>A nested list counts as one item in <code>len()</code>.</li>
+<li>Methods that change a list do it in place and return <code>None</code>.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"ham"</span><span class="p">,</span> <span class="s2">"egg"</span><span class="p">]</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">L</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>       <span class="c1"># 1, 'egg', [1, 2]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"x"</span><span class="p">]</span>           <span class="c1"># [1, 2, 'x']</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>               <span class="c1"># [1, 2, 1, 2, 1, 2]</span>
+<span class="n">mtx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">mtx</span><span class="p">),</span> <span class="n">mtx</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>      <span class="c1"># 4, 5</span>
+
+<span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>                 <span class="c1"># change one item</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>      <span class="c1"># replace with several: [1, 8, 9, 10, 3]</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">11</span><span class="p">]</span>            <span class="c1"># insert without replacing</span>
+
+<span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>             <span class="c1"># add ONE item to the end</span>
+<span class="n">L</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">])</span>       <span class="c1"># add EACH item from another list</span>
+<span class="n">L</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>                  <span class="c1"># remove and return the last item</span>
+<span class="n">L</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                 <span class="c1"># remove and return item at index 0</span>
+<span class="n">L</span><span class="o">.</span><span class="n">sort</span><span class="p">();</span> <span class="n">L</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> <span class="n">L</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="n">L</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>               <span class="c1"># position of 9 (ValueError if missing)</span>
+<span class="n">L</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>               <span class="c1"># how many 9s (0 if missing: safe check)</span>
+<span class="k">del</span> <span class="n">L</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>               <span class="c1"># delete a slice</span>
+</code></pre></div>
+
+<h3 id="tuples">Tuples</h3>
+<ul>
+<li>A tuple is a list you can't change, written with parentheses. It acts like a constant.</li>
+<li>A one-item tuple needs a trailing comma.</li>
+<li>A list stored inside a tuple can still be changed.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>             <span class="c1"># 1, (2,)</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span>                      <span class="c1"># just the number 4</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,)</span>                     <span class="c1"># a one-item tuple</span>
+<span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>                 <span class="c1"># TypeError</span>
+<span class="n">L1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="n">L1</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> <span class="n">T</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">L1</span><span class="p">)</span>  <span class="c1"># (4, 2, 1)</span>
+<span class="n">T</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">T</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="dictionaries">Dictionaries</h3>
+<ul>
+<li>A dictionary stores key: value pairs; you look up a value by its key, not by position.</li>
+<li>Assigning to a new key adds it with no warning; assigning to an existing key overwrites it.</li>
+<li>For gene annotation, a dictionary lookup is instant, while searching a list means scanning every item for every gene.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">D</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"apple"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">D</span><span class="p">[</span><span class="s2">"apple"</span><span class="p">]</span>               <span class="c1"># 5</span>
+<span class="n">D</span><span class="p">[</span><span class="s2">"zzz"</span><span class="p">]</span>                 <span class="c1"># KeyError</span>
+<span class="n">D</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"zzz"</span><span class="p">)</span>             <span class="c1"># None (no error)</span>
+<span class="n">D</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"zzz"</span><span class="p">,</span> <span class="s2">"NA"</span><span class="p">)</span>       <span class="c1"># 'NA'  default when missing</span>
+<span class="s2">"apple"</span> <span class="ow">in</span> <span class="n">D</span>             <span class="c1"># True  (replaces Python 2 has_key)</span>
+<span class="n">D</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">D</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">D</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">D</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"grapes"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"apple"</span><span class="p">:</span> <span class="mi">7</span><span class="p">})</span>  <span class="c1"># adds grapes, OVERWRITES apple</span>
+<span class="n">D</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"grapes"</span><span class="p">)</span>          <span class="c1"># remove key, return 4</span>
+<span class="n">D</span><span class="p">[</span><span class="s2">"mango"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>           <span class="c1"># add a key</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>    <span class="c1"># list() needed in Python 3</span>
+<span class="n">keys</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">D</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+<span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">master_list</span><span class="p">:</span>             <span class="c1"># annotation lookup pattern</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">gene_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="s2">"NA"</span><span class="p">))</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li>Never write <code>L = L.append(20)</code>. <code>append</code> returns <code>None</code>, so you lose your list.</li>
+<li><code>append([18])</code> puts a whole list inside your list; <code>extend([18])</code> adds just 18.</li>
+<li><code>sort()</code> puts uppercase before lowercase: <code>['ABD', 'a', 'b']</code>.</li>
+<li>String <code>.find()</code> returns -1 when missing, but list <code>.index()</code> crashes.</li>
+<li>Avoid integer keys like <code>d[0]</code>; they look like list positions and confuse readers.</li>
+</ul>
+<h2 id="unit-3-decisions">Unit 3: Decisions</h2>
+<p>An <code>if</code> block runs the first branch whose test is True and skips the rest, so put the most specific test first.</p>
+<h3 id="conditions-and-operators">Conditions and operators</h3>
+<ul>
+<li><code>==</code> tests whether values are equal; <code>is</code> tests whether two names point to the very same object.</li>
+<li>Lists and tuples compare item by item, left to right; the first difference decides.</li>
+<li>Strings compare character by character, and uppercase sorts before lowercase.</li>
+<li><code>and</code> needs every part True, <code>or</code> needs at least one, <code>not</code> flips True and False.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">L1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]];</span> <span class="n">L2</span> <span class="o">=</span> <span class="n">L1</span><span class="p">[:]</span>
+<span class="n">L1</span> <span class="o">==</span> <span class="n">L2</span><span class="p">,</span> <span class="n">L1</span> <span class="ow">is</span> <span class="n">L2</span>       <span class="c1"># True, False</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">a</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">2</span>   <span class="c1"># True, True, True</span>
+<span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mi">3</span>                <span class="c1"># True (chained; legal but harder to read)</span>
+<span class="mi">11</span> <span class="o">==</span> <span class="s2">"11"</span>               <span class="c1"># False: number vs string</span>
+<span class="nb">int</span><span class="p">(</span><span class="s2">"11"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">11</span>          <span class="c1"># True: convert input text first</span>
+<span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>         <span class="c1"># True</span>
+<span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>        <span class="c1"># False</span>
+<span class="ow">not</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>               <span class="c1"># True</span>
+<span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">&lt;</span> <span class="s2">"m"</span> <span class="ow">and</span> <span class="n">grade</span> <span class="o">&gt;</span> <span class="mi">75</span>
+</code></pre></div>
+
+<h3 id="if-elif-else">if / elif / else</h3>
+<ul>
+<li>Compound statements (<code>if</code>, <code>for</code>, <code>while</code>) have a header ending in a colon, then an indented block. Python uses indentation, not curly braces.</li>
+<li>Only <code>if</code> is required; <code>elif</code> and <code>else</code> are optional. <code>else</code> runs only if every test failed.</li>
+<li>Parentheses around a condition are optional but help readability, and let a long condition span several lines.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>        <span class="c1"># several assignments at once</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">=</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># all three set to 0</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">elif</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span> <span class="ow">and</span>
+        <span class="n">b</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">):</span>          <span class="c1"># multi-line condition inside ( )</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="c1"># specific test BEFORE the general one</span>
+<span class="k">if</span> <span class="n">seq_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"JTDS012_"</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="k">elif</span> <span class="n">seq_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"JTDS"</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li>A missing colon after <code>if</code>, <code>elif</code> or <code>else</code> is the most common SyntaxError; check it first.</li>
+<li>Never mix tabs and spaces in one block.</li>
+<li>Text read from a file or typed by a user is a string; convert with <code>int()</code> or <code>float()</code> before comparing to numbers.</li>
+<li>In Python 3, <code>11 &lt; "11"</code> and <code>&lt;</code> between dictionaries raise a TypeError.</li>
+</ul>
+<h2 id="unit-4-loops-and-files">Unit 4: Loops and files</h2>
+<p>A <code>for</code> loop walks through every item and ends by itself; a <code>while</code> loop repeats until its condition turns False, so something inside it must change that condition.</p>
+<h3 id="for-loops">for loops</h3>
+<ul>
+<li><code>for target in collection:</code> copies each item into the target variable, one per pass. Lists, tuples, dictionaries and open files can all be looped over ("iterable").</li>
+<li><code>break</code> stops the loop now. <code>continue</code> skips to the next item. <code>pass</code> does nothing (a placeholder).</li>
+<li>A loop's <code>else:</code> runs only if the loop finished without hitting <code>break</code>.</li>
+<li>Looping over a dictionary gives its keys. <code>d.items()</code> gives (key, value) pairs you can unpack.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"found ID"</span><span class="p">)</span>
+        <span class="k">break</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"ID not found"</span><span class="p">)</span>      <span class="c1"># loop-else: only if no break</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"#"</span><span class="p">:</span>
+        <span class="k">continue</span>               <span class="c1"># skip comment lines</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>     <span class="c1"># tuple unpacking</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>        <span class="c1"># % = remainder: even numbers</span>
+</code></pre></div>
+
+<p>Running a script from the terminal:</p>
+<div class="hl"><pre><span></span><code><span class="ch">#!/usr/bin/env python          # first line ("shebang")</span>
+<span class="c1"># terminal: chmod +x program1.py   then   ./program1.py</span>
+</code></pre></div>
+
+<h3 id="while-loops">while loops</h3>
+<ul>
+<li>The loop repeats while its condition is True. The number 0 counts as False.</li>
+<li>Forgetting to update the counter gives an infinite loop; stop it with Ctrl+C.</li>
+<li>Python has <code>x += 1</code> and <code>x -= 1</code>, but no <code>x++</code>.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">while</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>      <span class="c1"># 10 8 6 4 2</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>                     <span class="c1"># update OUTSIDE the if</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">"Enter the number: "</span><span class="p">))</span>  <span class="c1"># input is text; convert</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s2">"is not prime"</span><span class="p">);</span> <span class="k">break</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s2">"is a prime number"</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="range-enumerate-zip-map">range, enumerate, zip, map</h3>
+<ul>
+<li><code>range(start, stop, step)</code> makes numbers; the stop number is never included.</li>
+<li><code>enumerate</code> gives each item with its position; <code>zip</code> pairs items from several lists and stops at the shortest.</li>
+<li>In Python 3 these give lazy objects, so wrap them in <code>list()</code> to see them.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>    <span class="c1"># [0, 2, 4, 6, 8]</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>   <span class="c1"># 10 down to 1</span>
+<span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>          <span class="c1"># L[i] = i would be an IndexError</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>     <span class="c1"># 0 a / 1 b</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>    <span class="c1"># [('a', 1), ('b', 2)]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gene_ids</span><span class="p">,</span> <span class="n">notes</span><span class="p">))</span>   <span class="c1"># quick dictionary from two lists</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">F</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">32</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C</span><span class="p">]</span>    <span class="c1"># list comprehension: [50.0, 68.0, 86.0]</span>
+<span class="n">F</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">c_to_f</span><span class="p">,</span> <span class="n">C</span><span class="p">))</span>         <span class="c1"># map applies a function to each item</span>
+</code></pre></div>
+
+<h3 id="files">Files</h3>
+<ul>
+<li><code>open(name, mode)</code>: <code>"r"</code> read (default), <code>"w"</code> write (erases the file!), <code>"a"</code> append; add <code>+</code> to read and write.</li>
+<li>Files hold text: convert lists and numbers with <code>str()</code>, and add <code>\n</code> yourself.</li>
+<li>Writes wait in a buffer until <code>flush()</code> or <code>close()</code>.</li>
+<li>The file "bookmark" moves forward as you read; at the end, reads return <code>""</code>.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"out.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"hello world</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>   <span class="c1"># write adds no newline on its own</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>    <span class="c1"># lists must become text</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"out.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>               <span class="c1"># one line</span>
+<span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>                   <span class="c1"># the rest of the file</span>
+<span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>               <span class="c1"># jump back to the start (offset in BYTES)</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">):</span>  <span class="c1"># line by line: works on huge files</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>       <span class="c1"># remove the trailing \n</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>     <span class="c1"># dictionary -&gt; JSON text</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>  <span class="c1"># JSON text -&gt; dictionary</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li>The loop variable overwrites any earlier variable with the same name.</li>
+<li><code>pass</code> keeps running the rest of the loop body; <code>continue</code> skips it.</li>
+<li>A <code>continue</code> placed before the counter update in a <code>while</code> loop causes an infinite loop.</li>
+<li>Printing file lines gives blank lines between them, because each line already ends in <code>\n</code>. Use <code>rstrip()</code> or <code>print(line, end="")</code>.</li>
+<li>Don't load a huge file with <code>.read()</code>; loop over it line by line.</li>
+</ul>
+<h2 id="unit-5-regular-expressions">Unit 5: Regular expressions</h2>
+<p>A regular expression (regex) is a pattern that describes the text you want to find, such as "<code>&gt;</code> followed by word characters" for every FASTA sequence ID.</p>
+<ul>
+<li>Start with <code>import re</code>. Always write patterns as raw strings, <code>r"..."</code>, so Python doesn't turn <code>\t</code> or <code>\n</code> into real tabs and newlines first.</li>
+<li>Study the data before writing the pattern. A pattern that's too specific silently misses records.</li>
+<li>Matching is case-sensitive by default.</li>
+<li>You can compile a pattern once and reuse it, or write it straight into the function call ("inline").</li>
+</ul>
+<h3 id="functions-and-match-methods">Functions and match methods</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p = re.compile(r"...")</code></td>
+<td>Saves a pattern to reuse</td>
+</tr>
+<tr>
+<td><code>re.search(pat, s)</code></td>
+<td>First match anywhere; a match object or <code>None</code></td>
+</tr>
+<tr>
+<td><code>re.findall(pat, s, flag)</code></td>
+<td>List of every matching string (flag is optional)</td>
+</tr>
+<tr>
+<td><code>re.finditer(pat, s, flag)</code></td>
+<td>One match object per match, to loop over</td>
+</tr>
+<tr>
+<td><code>re.match(pat, s)</code></td>
+<td>Matches only at the very start (instructor prefers <code>^</code> + <code>search</code>)</td>
+</tr>
+<tr>
+<td><code>re.split(pat, s)</code></td>
+<td>Splits wherever the pattern matches, not just at one fixed piece of text (reading)</td>
+</tr>
+<tr>
+<td><code>re.sub(pat, new, s)</code></td>
+<td>Replaces every match; optional <code>count</code> limits how many (reading)</td>
+</tr>
+<tr>
+<td><code>re.subn(pat, new, s)</code></td>
+<td>Same as <code>sub</code>, but returns (new string, number of replacements) (reading)</td>
+</tr>
+<tr>
+<td><code>m.group()</code></td>
+<td>The text that matched</td>
+</tr>
+<tr>
+<td><code>m.start()</code>, <code>m.end()</code>, <code>m.span()</code></td>
+<td>Where the match starts and ends</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pattern-symbols">Pattern symbols</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[0-9]</code> <code>[A-Z]</code> <code>[a-z]</code></td>
+<td>Any ONE character from the set or range</td>
+<td><code>[GC]</code> finds each G or C</td>
+</tr>
+<tr>
+<td><code>[^GC]</code></td>
+<td>NOT these (<code>^</code> inside brackets)</td>
+<td>every A and T</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>Any single character except a newline (inside <code>[ ]</code> it is just a period)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>One or more of the item before</td>
+<td><code>\d+</code> = a run of digits</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Zero or more of the item before</td>
+<td><code>.*</code> = anything, even nothing</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Zero or one of the item before: makes it optional (reading)</td>
+<td><code>colou?r</code> matches color and colour</td>
+</tr>
+<tr>
+<td><code>{3}</code> <code>{1,2}</code></td>
+<td>Exactly 3 / between 1 and 2</td>
+<td><code>[0-9]{3}</code></td>
+</tr>
+<tr>
+<td><code>&#124;</code></td>
+<td>OR: match either side (reading)</td>
+<td><code>G&#124;C</code> matches G or C</td>
+</tr>
+<tr>
+<td><code>\w</code> / <code>\W</code></td>
+<td>Word character (letter, digit, _) / not one</td>
+<td><code>&gt;\w+</code> = FASTA IDs</td>
+</tr>
+<tr>
+<td><code>\d</code> / <code>\D</code></td>
+<td>Digit / not a digit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\s</code> / <code>\S</code></td>
+<td>Whitespace / not whitespace</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\</code></td>
+<td>Escape: treat a special symbol as plain text</td>
+<td><code>\.</code> = a real period</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Start of string (outside brackets)</td>
+<td><code>^super</code></td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>End of string (or just before a final newline)</td>
+<td><code>away$</code></td>
+</tr>
+<tr>
+<td><code>\A</code> / <code>\Z</code></td>
+<td>Only the very start / very end of the string (reading)</td>
+<td>stricter than <code>^</code> / <code>$</code></td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>Word edge</td>
+<td><code>\bsuper\b</code> = the whole word only</td>
+</tr>
+<tr>
+<td><code>( )</code></td>
+<td>Group: capture just this part, as a unit</td>
+<td><code>(GC)</code> = "GC" together</td>
+</tr>
+<tr>
+<td><code>.*?</code></td>
+<td>Non-greedy: match as little as possible</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<div class="hl"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">"&gt;JTDac001_P23 len: 120</span><span class="se">\n</span><span class="s2">ATGCGC</span><span class="se">\n</span><span class="s2">&gt;JTDs001_H05 len: 98</span><span class="se">\n</span><span class="s2">GGCATT</span><span class="se">\n</span><span class="s2">"</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"JTD[a-z]+[0-9]+_[A-Z][0-9]+"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>              <span class="c1"># ['JTDac001_P23', 'JTDs001_H05']</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"&gt;\w+"</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>    <span class="c1"># ['&gt;JTDac001_P23', '&gt;JTDs001_H05']</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>       <span class="c1"># 'JTDac001_P23', (1, 13)</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[GC]"</span><span class="p">,</span> <span class="s2">"CATGGCATTAGCGC"</span><span class="p">))</span>   <span class="c1"># 8  (GC count)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(GC)"</span><span class="p">,</span> <span class="s2">"CATGGCATTAGCGC"</span><span class="p">)</span>        <span class="c1"># ['GC', 'GC', 'GC']</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\bsuper\b"</span><span class="p">,</span> <span class="s2">"superman is fast"</span><span class="p">)</span>  <span class="c1"># None</span>
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^super"</span><span class="p">,</span> <span class="s2">"flash is super fast"</span><span class="p">)</span>  <span class="c1"># None</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="s2">"domain:~Viruses;~kingdom:~Viruses;~"</span>
+<span class="nb">dict</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(.*?):~(.*?);~"</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="c1"># {'domain': 'Viruses', 'kingdom': 'Viruses'}</span>
+</code></pre></div>
+
+<h3 id="from-the-regular-expressions-reading">From the Regular Expressions reading</h3>
+<p>The written reading adds <code>split</code>, <code>sub</code>, <code>subn</code>, the <code>?</code> and <code>|</code> symbols, and flags. Flags are optional settings passed as the last argument to change how a pattern matches.</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>re.I</code> or <code>re.IGNORECASE</code></td>
+<td>Ignore upper/lowercase; <code>[A-Z]</code> also matches lowercase</td>
+</tr>
+<tr>
+<td><code>re.M</code> or <code>re.MULTILINE</code></td>
+<td><code>^</code> and <code>$</code> match at the start and end of every line, not just the whole string</td>
+</tr>
+<tr>
+<td><code>re.S</code> or <code>re.DOTALL</code></td>
+<td><code>.</code> also matches a newline</td>
+</tr>
+<tr>
+<td><code>re.X</code> or <code>re.VERBOSE</code></td>
+<td>Lets you spread a pattern out with spaces and comments to make it readable</td>
+</tr>
+<tr>
+<td><code>re.DEBUG</code>, <code>re.L</code>, <code>re.U</code></td>
+<td>Debug output, locale rules, Unicode rules (rarely needed)</td>
+</tr>
+</tbody>
+</table>
+<div class="hl"><pre><span></span><code><span class="n">dna</span> <span class="o">=</span> <span class="s2">"GCGCUAAGGGCCCUAAGCCCGCCCUAACGCGUAACGGGGGUAAGCCCC"</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"GC+"</span><span class="p">,</span> <span class="n">dna</span><span class="p">)</span>    <span class="c1"># G followed by one or more C: ['GC', 'GC', 'GCCC', ...]</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"(GC)+"</span><span class="p">,</span> <span class="n">dna</span><span class="p">)</span>  <span class="c1"># repeated "GC" units; findall returns the group: ['GC', ...]</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"[GC]+"</span><span class="p">,</span> <span class="n">dna</span><span class="p">)</span>  <span class="c1"># runs of G or C (greedy): ['GCGC', 'GGGCCC', ...]</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"G|C"</span><span class="p">,</span> <span class="s2">"AGTC"</span><span class="p">)</span> <span class="c1"># ['G', 'C']</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="s2">"ACTGACGCTATCGATGCACTG"</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"AC"</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>       <span class="c1"># 'AC', (0, 2)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"T"</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>       <span class="c1"># 'TCTGTCGCTTTCGTTGCTCTG'</span>
+<span class="n">re</span><span class="o">.</span><span class="n">subn</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"T"</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>      <span class="c1"># ('TCTGTCGCTTTCGTTGCTCTG', 5)</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"@\w+.\w+$"</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"hello@yahoo.com"</span><span class="p">)</span>   <span class="c1"># ['hello', '']</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^super"</span><span class="p">,</span> <span class="s2">"Superman is fast"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>   <span class="c1"># ['Super']</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^super"</span><span class="p">,</span> <span class="s2">"Superman is fast"</span><span class="p">)</span>         <span class="c1"># []</span>
+
+<span class="n">txt</span> <span class="o">=</span> <span class="s2">"This is a string! But it has punctuation."</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^!.? ]+"</span><span class="p">,</span> <span class="n">txt</span><span class="p">)</span>   <span class="c1"># every word, no punctuation or spaces</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li><code>search</code> stops at the first match; use <code>findall</code> or <code>finditer</code> for all of them.</li>
+<li>Calling <code>.group()</code> on <code>None</code> (no match) is an error. Check the result first.</li>
+<li>Square brackets mean "any ONE of these characters"; parentheses mean "this exact sequence, captured".</li>
+<li><code>^</code> means "start" outside brackets but "NOT" inside them. Inside <code>[ ]</code>, other symbols such as <code>.</code> are plain characters.</li>
+<li><code>?</code> has two jobs: after a character it means "optional" (<code>u?</code>); after <code>*</code> or <code>+</code> it means "stop early" (<code>.*?</code>).</li>
+<li><code>.*</code> is greedy and grabs as much as it can; add <code>?</code> to make it stop early.</li>
+<li><code>\w</code> doesn't include the period, so <code>0.572</code> splits into <code>0</code> and <code>572</code>.</li>
+<li><code>*</code> or <code>+</code> with nothing in front gives "nothing to repeat". Escape a literal <code>*</code> as <code>\*</code>.</li>
+<li>In the reading's <code>@\w+.\w+$</code> the unescaped <code>.</code> matches any character; write <code>\.</code> when you mean a real period.</li>
+<li>The reading uses Python 2 <code>print</code> without parentheses; in Python 3 write <code>print(...)</code>.</li>
+</ul>
+<h2 id="unit-6-functions">Unit 6: Functions</h2>
+<p>A function is a named, reusable block of code: you pass data in as arguments, it does one job, and <code>return</code> sends the result back.</p>
+<h3 id="functions-basics">Functions basics</h3>
+<ul>
+<li>Write code once as a function instead of copying it, so a fix happens in one place ("multiple points of failure" otherwise).</li>
+<li>Arguments match parameters by position, unless you name them (keyword arguments).</li>
+<li><code>return</code> sends a value back and ends the function. With no <code>return</code>, the function gives back <code>None</code>.</li>
+<li><code>yield</code> makes a generator: it hands back one value at a time and remembers where it stopped.</li>
+<li>A function must be defined before the line that calls it runs.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">power_of</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exponent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Input: base, exponent (numbers). Output: base**exponent"""</span>
+    <span class="k">return</span> <span class="n">base</span> <span class="o">**</span> <span class="n">exponent</span>
+
+<span class="n">power_of</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>                 <span class="c1"># 8</span>
+<span class="n">power_of</span><span class="p">(</span><span class="n">exponent</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># 8  (keyword arguments)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_squares</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">i</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="k">for</span> <span class="n">sq</span> <span class="ow">in</span> <span class="n">gen_squares</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sq</span><span class="p">)</span>                  <span class="c1"># 0 1 4 9 16</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="o">...</span>                        <span class="c1"># program body</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>     <span class="c1"># True when the file is run directly</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="arguments">Arguments</h3>
+<ul>
+<li>A default value makes an argument optional.</li>
+<li><code>*args</code> collects any number of extra unnamed arguments (a tuple you can loop over).</li>
+<li><code>**kwargs</code> collects any number of extra named arguments into a dictionary.</li>
+<li>The stars do the work; <code>args</code> and <code>kwargs</code> are just conventional names.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">power_of</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exponent</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">base</span> <span class="o">**</span> <span class="n">exponent</span>
+<span class="n">power_of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                    <span class="c1"># 4</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">total</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">i</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">s</span>
+<span class="n">total</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>                       <span class="c1"># 1</span>
+<span class="n">total</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>           <span class="c1"># 15</span>
+<span class="n">total</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># 36</span>
+</code></pre></div>
+
+<h3 id="docstrings-and-getting-help">Docstrings and getting help</h3>
+<ul>
+<li>A docstring is a triple-quoted description at the top of a file, function or class. Python stores it in <code>__doc__</code>.</li>
+<li>The instructor expects a docstring for every file and function, plus <code>#</code> comments on individual lines.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">power_of</span><span class="o">.</span><span class="vm">__doc__</span>     <span class="c1"># shows the docstring</span>
+<span class="nb">dir</span><span class="p">([])</span>              <span class="c1"># list everything a list can do</span>
+<span class="n">help</span><span class="p">([]</span><span class="o">.</span><span class="n">append</span><span class="p">)</span>      <span class="c1"># explain one method (press q to quit)</span>
+</code></pre></div>
+
+<h3 id="scope-legb">Scope (LEGB)</h3>
+<ul>
+<li>Python looks for a name in four places, inside out: <strong>L</strong>ocal (this function), <strong>E</strong>nclosing (a function wrapped around it), <strong>G</strong>lobal (top of the file), <strong>B</strong>uilt-in (<code>print</code>, <code>len</code>).</li>
+<li>Setting a variable inside a function makes a new local one; the outside variable is untouched.</li>
+<li>To change a top-level variable inside a function, declare it <code>global</code>, or better, pass it in and <code>return</code> the result.</li>
+<li>Passing a list lets the function change the caller's list; passing a number does not.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f1</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span>               <span class="c1"># new LOCAL x</span>
+<span class="n">f1</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># 10</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f2</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="n">f2</span><span class="p">();</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># 200</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f3</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"changed"</span>   <span class="c1"># changes the caller's list!</span>
+<span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span> <span class="n">f3</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>     <span class="c1"># L is [1, 'changed', 3]</span>
+<span class="n">f3</span><span class="p">(</span><span class="n">L</span><span class="p">[:])</span>                 <span class="c1"># pass a copy to protect L</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">trim_seq</span><span class="p">(</span><span class="n">qual</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">l_index</span><span class="p">,</span> <span class="n">r_index</span>   <span class="c1"># return two values</span>
+<span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">trim_seq</span><span class="p">(</span><span class="n">qual</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="lambda-map-filter-reduce">Lambda, map, filter, reduce</h3>
+<ul>
+<li>A lambda is a one-line function with no name: <code>lambda args: expression</code>. It returns the expression automatically.</li>
+<li><code>map</code> applies a function to every item; <code>filter</code> keeps items that pass a test; <code>reduce</code> combines items into one value.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
+<span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>                                  <span class="c1"># 6</span>
+<span class="n">lower</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span>      <span class="c1"># one-line if/else</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">d</span><span class="p">[</span><span class="s2">"b"</span><span class="p">](</span><span class="mi">4</span><span class="p">)</span>                                   <span class="c1"># 12  ("switch" pattern)</span>
+
+<span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>    <span class="c1"># [2, 4, 6, 8]</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>  <span class="c1"># [0, 2, 4, 6, 8]</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
+<span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>      <span class="c1"># 4950</span>
+</code></pre></div>
+
+<h3 id="recursion">Recursion</h3>
+<ul>
+<li>A recursive function calls itself on a smaller piece of the data. It suits data of unknown depth, like Gene Ontology hierarchies.</li>
+<li>Every recursive function needs a stopping condition (base case), written first.</li>
+<li>Recursion can be slow and memory-hungry; trace it with pen and paper.</li>
+</ul>
+<div class="hl"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">mysum</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">L</span><span class="p">:</span>                   <span class="c1"># base case: empty list</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mysum</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="n">mysum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>          <span class="c1"># 45</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mysum2</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>               <span class="c1"># works on nested lists</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">L</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span> <span class="o">+</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mysum2</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mysum2</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="n">mysum2</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">mysum2</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]],</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># 45</span>
+</code></pre></div>
+
+<p>Watch out:</p>
+<ul>
+<li>Keyword names must match the parameter names exactly.</li>
+<li>Don't name your own function <code>min</code>, <code>max</code>, <code>list</code> or <code>len</code>; it hides the built-in.</li>
+<li>Without <code>global</code>, <code>x = x * 20</code> inside a function raises <code>UnboundLocalError</code>.</li>
+<li>Variables made inside <code>main()</code> are local to <code>main</code>; pass them to other functions as arguments.</li>
+<li>Recursion on cyclic data (A → B → A) loops forever unless you track nodes already seen.</li>
+</ul>
+<h2 id="python-2-vs-python-3">Python 2 vs Python 3</h2>
+<p>The instructor demos in Python 2.7, so some of what you see on screen behaves differently in Python 3. This guide uses Python 3 throughout.</p>
+<table>
+<thead>
+<tr>
+<th>On screen (Python 2)</th>
+<th>Type this in Python 3</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>print x</code></td>
+<td><code>print(x)</code></td>
+<td>print is a function now</td>
+</tr>
+<tr>
+<td><code>print x,</code></td>
+<td><code>print(x, end=" ")</code></td>
+<td>stay on the same line</td>
+</tr>
+<tr>
+<td><code>3/2</code> gives <code>1</code></td>
+<td><code>3/2</code> gives <code>1.5</code>; use <code>3//2</code> for <code>1</code></td>
+<td>true division by default</td>
+</tr>
+<tr>
+<td><code>from __future__ import division</code></td>
+<td>not needed</td>
+<td>already the default</td>
+</tr>
+<tr>
+<td><code>raw_input(...)</code></td>
+<td><code>input(...)</code></td>
+<td>always returns text</td>
+</tr>
+<tr>
+<td><code>d.has_key("a")</code></td>
+<td><code>"a" in d</code></td>
+<td><code>has_key</code> was removed</td>
+</tr>
+<tr>
+<td><code>d.keys()</code> is a list</td>
+<td><code>list(d.keys())</code> to sort it</td>
+<td>keys come back as a view</td>
+</tr>
+<tr>
+<td><code>range</code>, <code>map</code>, <code>zip</code>, <code>filter</code>, <code>enumerate</code> print as lists</td>
+<td>wrap in <code>list()</code> to see them</td>
+<td>they are lazy objects</td>
+</tr>
+<tr>
+<td><code>reduce(...)</code> built in</td>
+<td><code>from functools import reduce</code></td>
+<td>moved to a module</td>
+</tr>
+<tr>
+<td><code>11 &lt; "11"</code> allowed</td>
+<td>TypeError</td>
+<td>can't compare number and text</td>
+</tr>
+<tr>
+<td><code>math.floor(1.3)</code> gives <code>1.0</code></td>
+<td>gives <code>1</code></td>
+<td>returns an integer</td>
+</tr>
+<tr>
+<td>Dictionaries print in random order</td>
+<td>Keep insertion order (3.7+)</td>
+<td>still no slicing by position</td>
+</tr>
+<tr>
+<td><code>u'...'</code> in JSON output</td>
+<td>plain <code>'...'</code></td>
+<td>display only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="corrections-to-the-lectures">Corrections to the lectures</h2>
+<p>In a few places the instructor misspoke. Each line below gives what was said and what Python actually does (checked by running the code).</p>
+<table>
+<thead>
+<tr>
+<th>Lecture</th>
+<th>What was said</th>
+<th>What Python actually does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numbers</td>
+<td><code>randrange(10, 20)</code> gives "between 10 and 20"</td>
+<td>10 to 19; the end is never included</td>
+</tr>
+<tr>
+<td>Numbers</td>
+<td>PEMDAS: multiply, then divide, then add, then subtract</td>
+<td><code>*</code> and <code>/</code> tie and go left to right; so do <code>+</code> and <code>-</code></td>
+</tr>
+<tr>
+<td>Strings 1</td>
+<td><code>s[len(s)-1]</code> of "hello world" is "T"</td>
+<td>It is <code>'d'</code></td>
+</tr>
+<tr>
+<td>Strings 2</td>
+<td><code>rstrip</code> removes leading spaces</td>
+<td><code>rstrip</code> removes trailing (right) spaces; <code>lstrip</code> removes leading (left)</td>
+</tr>
+<tr>
+<td>Booleans &amp; sets</td>
+<td>Sets are immutable</td>
+<td>You can add to and remove from a set; only its items must be immutable</td>
+</tr>
+<tr>
+<td>Lists 2</td>
+<td>Default <code>sort()</code> is descending</td>
+<td>Ascending; uppercase letters simply come before lowercase</td>
+</tr>
+<tr>
+<td>Conditions</td>
+<td>"Semicolon equal" for not-equal</td>
+<td>The operator is <code>!=</code></td>
+</tr>
+<tr>
+<td>range</td>
+<td><code>range(0, 11, 2)</code> gives 2 to 10</td>
+<td><code>[0, 2, 4, 6, 8, 10]</code></td>
+</tr>
+<tr>
+<td>Files 1</td>
+<td>Output was "hello world ABC"</td>
+<td><code>hello worldABC</code>; <code>write</code> adds no space or newline</td>
+</tr>
+<tr>
+<td>Files 2</td>
+<td><code>json.dump</code> to make a string</td>
+<td><code>json.dumps</code> returns a string; <code>json.dump(d, f)</code> writes straight to a file</td>
+</tr>
+<tr>
+<td>Regex 4</td>
+<td><code>?</code> is a third anchor</td>
+<td>It was only used to make <code>*</code> non-greedy (<code>.*?</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="self-check-questions">Self-check questions</h2>
+<p>Try each one before reading the answer in parentheses.</p>
+<ol>
+<li>What does <code>"ACTGACTG"[2:5]</code> return? (<code>'TGA'</code>)</li>
+<li>Name two ways to reverse a string. (<code>s[::-1]</code> and <code>"".join(reversed(s))</code>)</li>
+<li>Why does <code>L = L.append(5)</code> destroy your list? (<code>append</code> returns <code>None</code>)</li>
+<li>What is the difference between <code>append([1, 2])</code> and <code>extend([1, 2])</code>? (append adds one nested list; extend adds two separate items)</li>
+<li>How do you look up a gene in a dictionary without crashing if it's missing? (<code>d.get(gene, "NA")</code>)</li>
+<li>How do you write a one-item tuple? (<code>(4,)</code>)</li>
+<li>When does a loop's <code>else</code> block run? (Only if the loop ended without <code>break</code>)</li>
+<li>What's the difference between <code>continue</code> and <code>pass</code>? (<code>continue</code> skips the rest of the body; <code>pass</code> does nothing and the body keeps going)</li>
+<li>What does opening an existing file with <code>"w"</code> do? (Erases it)</li>
+<li>Why print file lines with <code>rstrip()</code>? (Each line already ends in <code>\n</code>, so you'd get blank lines)</li>
+<li>What does <code>list(range(2, 10, 3))</code> give? (<code>[2, 5, 8]</code>)</li>
+<li>Why write regex patterns as <code>r"..."</code>? (So <code>\n</code>, <code>\t</code> and other backslash codes reach the regex unchanged)</li>
+<li><code>search</code> vs <code>findall</code>? (<code>search</code> returns the first match object; <code>findall</code> returns a list of every match)</li>
+<li>What does <code>[^GC]</code> match? (Any one character that isn't G or C)</li>
+<li>What does LEGB stand for? (Local, Enclosing, Global, Built-in)</li>
+<li>A function changes <code>lst[0]</code> on a list you passed in. Is your original list changed? (Yes; pass <code>L[:]</code> to protect it)</li>
+<li>What do <code>*args</code> and <code>**kwargs</code> collect? (Extra unnamed arguments as a tuple; extra named arguments as a dictionary)</li>
+<li>Write a lambda that triples a number. (<code>lambda x: x * 3</code>)</li>
+<li>What must every recursive function have? (A stopping condition, or base case)</li>
+<li>What does <code>if __name__ == "__main__":</code> do? (Runs <code>main()</code> only when the file is run directly)</li>
+</ol></main></div></body></html>
